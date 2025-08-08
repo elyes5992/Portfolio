@@ -1,6 +1,13 @@
 /* Fichier : src/components/Portfolio.css */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
+/* --- CORRECTION N°1 : Règle d'or pour un layout sans surprise --- */
+/* Ceci garantit que le padding et les bordures sont INCLUS dans la largeur
+   d'un élément, et non ajoutés en plus. C'est la meilleure pratique. */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 :root {
   --bg-color: #12121c;
   --card-bg-color: rgba(30, 30, 48, 0.5);
@@ -16,7 +23,9 @@ body {
   color: var(--primary-text-color);
   font-family: 'Poppins', sans-serif;
   margin: 0;
-  padding: 40px 20px;
+  /* --- CORRECTION N°2 : Padding ajusté --- */
+  padding: 40px 15px; /* Réduit le padding horizontal pour les petits écrans */
+  overflow-x: hidden; /* Sécurité ultime : empêche tout défilement horizontal */
 }
 
 @keyframes fadeIn {
@@ -85,7 +94,12 @@ body {
 .portfolio-header { text-align: center; margin-bottom: 60px; }
 .portfolio-header h1 { font-size: 3rem; font-weight: 700; color: var(--primary-text-color); margin-bottom: 10px; }
 .portfolio-header p { font-size: 1.1rem; color: var(--secondary-text-color); max-width: 600px; margin: 0 auto; }
-.projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
+.projects-grid {
+  display: grid;
+  /* --- CORRECTION N°3 : Minimum de la grille plus petit --- */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px; /* Un peu moins d'espace sur mobile */
+}
 .project-card {
   background: var(--card-bg-color);
   border: 1px solid var(--border-color);
@@ -112,7 +126,6 @@ body {
 .project-browser-bar .dot:nth-child(2) { background-color: #ffbd2e; }
 .project-browser-bar .dot:nth-child(3) { background-color: #27c93f; }
 
-/* --- MODIFIÉ : Styles pour l'iframe --- */
 .project-iframe {
   width: 100%;
   height: calc(200px - 28px);
@@ -144,14 +157,44 @@ body {
 .visit-button .arrow { margin-left: 8px; transition: transform 0.3s ease; display: inline-block; }
 .visit-button:hover .arrow { transform: translateX(5px); }
 
-/* Responsive Design */
+/* ========================================================= */
+/* --- SECTION DES AJUSTEMENTS RESPONSIVE (MOBILES) --- */
+/* ========================================================= */
+
+/* Pour les tablettes et grands téléphones */
 @media (max-width: 900px) {
-  .hero-section { flex-direction: column-reverse; text-align: center; }
-  .hero-text .hero-quote { border-left: none; padding-left: 0; margin: 0 auto; max-width: 500px; }
-  .about-skills-section { grid-template-columns: 1fr; gap: 40px; }
+  .hero-section {
+    flex-direction: column-reverse; /* Met l'image au-dessus */
+    text-align: center;
+    margin-bottom: 80px;
+  }
+  .hero-text .hero-quote {
+    border-left: none;
+    padding-left: 0;
+    margin: 0 auto;
+    max-width: 500px;
+  }
+  .about-skills-section {
+    grid-template-columns: 1fr; /* Une seule colonne */
+    gap: 50px;
+    margin-bottom: 80px;
+  }
 }
+
+/* Pour la plupart des téléphones */
 @media (max-width: 768px) {
-  .portfolio-header h1 { font-size: 2.5rem; }
-  .hero-text h1 { font-size: 3rem; }
+  .hero-text h1 { font-size: 2.8rem; }
   .hero-text h2 { font-size: 1.5rem; }
+  .portfolio-header h1 { font-size: 2.5rem; }
+}
+
+/* Pour les très petits téléphones */
+@media (max-width: 480px) {
+    .hero-text h1 {
+        font-size: 2.2rem; /* Police encore plus petite */
+    }
+    .hero-image {
+        width: 150px; /* Image de profil plus petite */
+        height: 150px;
+    }
 }
