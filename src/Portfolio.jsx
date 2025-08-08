@@ -17,7 +17,7 @@ const donneesProjets = [
   {
     id: 3,
     titre: 'Hera Labs',
-    description: 'Site Ecommerce pour une entreprise specialisé dans la vente des veilleuse luxs imprimé 3D.',
+    description: 'Site Ecommerce pour une entreprise specialisé dans la vente des veilleuse luxs imprimées en 3D.',
     url: 'https://heralabs.tn/',
   },
   {
