@@ -1,6 +1,6 @@
 // Fichier : src/components/Portfolio.jsx
 import React from 'react';
-import './Portfolio.css';
+import './Portfolioo.css';
 
 // --- Importation de votre image de profil ---
 import profileImage from './assets/face.jpg';
