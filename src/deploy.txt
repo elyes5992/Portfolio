@@ -1,0 +1,10 @@
+# Add all changed files to the staging area
+git add .
+
+# Create a commit with a descriptive message
+git commit -m "feat: Redesign background with top glow effect"
+
+# (Optional but recommended) Push your source code changes to the main branch
+git push origin main
+
+npm run deploy

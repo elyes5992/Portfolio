@@ -17,7 +17,10 @@
 }
 
 body {
-  background-color: var(--bg-color);
+  background: 
+    radial-gradient(ellipse 50% 60% at 50% 0%, rgba(108, 92, 231, 0.2) 0%, transparent 100%) no-repeat,
+    var(--bg-color);
+  
   color: var(--primary-text-color);
   font-family: 'Poppins', sans-serif;
   margin: 0;
@@ -79,7 +82,7 @@ body {
 }
 
 /* ========================================================= */
-/* --- NOUVEAUX STYLES : Section Projets Principaux (IA) --- */
+/* --- NOUVELLE MISE EN PAGE : Projets Principaux --- */
 /* ========================================================= */
 .main-projects-section {
     margin-bottom: 120px;
@@ -89,7 +92,8 @@ body {
 
 .main-projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    /* Un projet par ligne pour un maximum d'espace */
+    grid-template-columns: 1fr;
     gap: 30px;
 }
 
@@ -99,66 +103,75 @@ body {
     border-radius: 15px;
     padding: 30px;
     display: flex;
-    flex-direction: column;
+    /* --- MODIFIÉ : Disposition horizontale --- */
+    flex-direction: row;
     align-items: center;
-    text-align: center;
+    gap: 30px;
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     backdrop-filter: blur(10px);
 }
 
 .main-project-card:hover {
-    transform: translateY(-12px);
+    transform: translateY(-10px);
     border-color: var(--accent-color);
     box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 30px var(--glow-color);
 }
 
 .project-icon-wrapper {
-    font-size: 3rem;
+    font-size: 3.5rem;
     color: var(--accent-color);
-    margin-bottom: 20px;
     background: rgba(108, 92, 231, 0.1);
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
+    width: 100px; /* Taille augmentée */
+    height: 100px; /* Taille augmentée */
+    border-radius: 15px; /* Moins arrondi */
     display: flex;
     justify-content: center;
     align-items: center;
     transition: transform 0.3s ease;
+    flex-shrink: 0; /* Empêche l'icône de rétrécir */
+    margin: 0; /* Reset margin */
 }
 
 .main-project-card:hover .project-icon-wrapper {
-    transform: scale(1.1);
+    transform: scale(1.1) rotate(-5deg);
 }
 
-.main-project-card h3 {
-    font-size: 1.5rem;
+/* --- NOUVEAU : Conteneur pour le texte --- */
+.project-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Aligne le texte à gauche */
+    flex-grow: 1;
+}
+
+.project-details h3 {
+    font-size: 1.6rem;
     margin-top: 0;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     color: var(--primary-text-color);
 }
 
-.main-project-card p {
-    font-size: 0.95rem;
+.project-details p {
+    font-size: 1rem;
     color: var(--secondary-text-color);
     line-height: 1.6;
-    flex-grow: 1; /* Permet à la description de prendre l'espace disponible */
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 .project-tech-tags {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start; /* Aligne les tags à gauche */
     gap: 8px;
-    margin-top: auto; /* Pousse les tags en bas de la carte */
+    margin-top: auto;
 }
 
 .tech-tag {
     background: var(--tech-tag-bg);
     border: 1px solid var(--border-color);
-    padding: 4px 12px;
+    padding: 5px 14px;
     border-radius: 20px;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 500;
     color: var(--secondary-text-color);
     transition: all 0.2s ease;
@@ -194,6 +207,18 @@ body {
   transition: all 0.3s ease;
 }
 .skill-tag:hover { color: var(--primary-text-color); border-color: var(--accent-color); transform: translateY(-2px); }
+
+/* --- NOUVEAU : Style pour mettre en avant les compétences PHP --- */
+.skill-tag.highlight {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #fff;
+    font-weight: 600;
+}
+.skill-tag.highlight:hover {
+    box-shadow: 0 0 15px var(--glow-color);
+}
+
 
 /* --- Section Projets WordPress --- */
 .projects-section {
@@ -251,7 +276,18 @@ body {
   .hero-text h1 { font-size: 2.8rem; }
   .hero-text h2 { font-size: 1.5rem; }
   .portfolio-header h1 { font-size: 2.5rem; }
-  .main-projects-grid { grid-template-columns: 1fr; }
+
+  /* --- MODIFIÉ : Responsive pour les cartes de projet --- */
+  .main-project-card {
+      flex-direction: column;
+      text-align: center;
+  }
+  .project-details {
+      align-items: center;
+  }
+  .project-tech-tags {
+      justify-content: center;
+  }
 }
 
 @media (max-width: 480px) {

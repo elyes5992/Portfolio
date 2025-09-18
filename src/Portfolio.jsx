@@ -6,10 +6,9 @@ import './Portfolio.css';
 import profileImage from './assets/face.jpg';
 
 // --- Importation des icônes pour les projets ---
-import { FaRobot, FaFileInvoice, FaMobileAlt, FaBriefcase, FaBuilding, FaBrain, FaCube } from 'react-icons/fa';
+import { FaRobot, FaFileInvoice, FaMobileAlt, FaBriefcase, FaBuilding, FaBrain, FaCube, FaChartBar } from 'react-icons/fa';
 
-
-// --- NOUVEAU : Données scindées en deux catégories ---
+// --- Données des projets mises à jour depuis le CV ---
 
 // 1. Projets d'Intelligence Artificielle
 const projetsIA = [
@@ -30,8 +29,8 @@ const projetsIA = [
   {
     id: 103,
     titre: "Extraction de Données de Factures",
-    description: "Flux de travail automatisé utilisant un modèle ML (LayoutLMv3) fine-tuné pour extraire avec précision les informations de factures, éliminant la saisie manuelle.",
-    technologies: ["Machine Learning", "LayoutLMv3", "Python", "Fine-Tuning"],
+    description: "Pipeline d'extraction automatisé utilisant un modèle ML (LayoutLMv3) affiné pour extraire les données, réduisant la saisie manuelle de plus de 74%.",
+    technologies: ["PHP", "Symfony", "Python", "Machine Learning", "LayoutLMv3"],
     icon: <FaFileInvoice />,
   },
 ];
@@ -39,7 +38,14 @@ const projetsIA = [
 // 2. Projets de Développement Logiciel
 const projetsDeveloppement = [
   {
-    id: 107, // NOUVEAU PROJET AJOUTÉ
+    id: 108, // NOUVEAU PROJET DU CV
+    titre: "Analyse Intelligente de Feedback (SaaS)",
+    description: "Application SaaS pour centraliser et analyser les retours clients. Un backend robuste en PHP/Laravel gère les tâches asynchrones et une API RESTful, consommée par un dashboard React.",
+    technologies: ["PHP", "Laravel", "React", "Python", "NLP", "Docker"],
+    icon: <FaChartBar />,
+  },
+  {
+    id: 107,
     titre: "E-commerce 3D Printing (Next.js)",
     description: "Site e-commerce performant pour une entreprise d'impression 3D, construit avec Next.js pour le rendu côté serveur (SSR) et une expérience utilisateur rapide.",
     technologies: ["Next.js", "React", "Node.js", "MongoDB", "Stripe API"],
@@ -62,8 +68,8 @@ const projetsDeveloppement = [
   {
     id: 106,
     titre: "Plateforme de Recrutement LEONI",
-    description: "Développement d'une plateforme de recrutement sur-mesure pour le département marketing, optimisant le processus de candidature et de sélection.",
-    technologies: ["Full-Stack", "Junit", "Mockito", "CI/CD"],
+    description: "Application web dynamique pour la mise en relation entre candidats et recruteurs. Frontend interactif en Angular et backend robuste en Java/Express.js.",
+    technologies: ["Angular", "Java", "Express.js", "REST API"],
     icon: <FaBuilding />,
   },
 ];
@@ -91,28 +97,35 @@ const donneesProjetsWordPress = [
   },
 ];
 
-// --- Vos compétences techniques, tirées du CV ---
+// --- Compétences techniques mises à jour avec mise en avant de PHP ---
 const competences = {
-    "Frontend": ["React", "Angular", "Vue.js", "Next.js"],
-    "Backend": ["Node.js", "Spring Boot", "Express"],
-    "Bases de Données": ["PostgreSQL", "MySQL", "MongoDB", "Oracle"],
-    "Mobile": ["Flutter", "React Native"],
-    "Fondamentaux & Outils": ["IA/ML", "Python", "WebSockets", "REST API", "LLM", "RAG", "CI/CD", "Junit", "Mockito"]
+    "Frontend": [
+        { name: "React" }, { name: "Angular" }, { name: "Vue.js" }, { name: "Next.js" }
+    ],
+    "Backend": [
+        { name: "PHP", highlight: true }, { name: "Laravel", highlight: true }, { name: "Symfony", highlight: true },
+        { name: "Node.js" }, { name: "Spring Boot" }, { name: "Express" }, { name: "Java" }, { name: "Python" }
+    ],
+    "Bases de Données": [
+        { name: "PostgreSQL" }, { name: "MySQL" }, { name: "MongoDB" }, { name: "Oracle" }
+    ],
+    "Mobile": [
+        { name: "Flutter" }, { name: "React Native" }
+    ],
+    "Fondamentaux & Outils": [
+        { name: "IA/ML" }, { name: "LLM" }, { name: "RAG" }, { name: "Python" }, { name: "WebSockets" }, { name: "REST API" }, { name: "CI/CD" }, { name: "Docker" }, { name: "Junit" }
+    ]
 };
 
 function Portfolio() {
   return (
     <div className="portfolio-container">
-      <div className="blob-container">
-        <div className="background-blob1"></div>
-        <div className="background-blob2"></div>
-      </div>
       {/* ============== SECTION HÉROS ============== */}
       <section className="hero-section">
         <div className="hero-text">
           <h1>Elyes BOUGHRARA</h1>
-          <h2>Software Engineer</h2>
-          <p className="hero-subtitle">Spécialisé en IA, Machine Learning & Développement Full-Stack.</p>
+          <h2>Fullstack & AI Engineer</h2>
+          <p className="hero-subtitle">Spécialisé en PHP, IA & Développement d'applications robustes.</p>
           <p className="hero-quote">
             "Le code est comme une blague : si vous devez l'expliquer, ce n'est pas bon."
           </p>
@@ -122,7 +135,7 @@ function Portfolio() {
         </div>
       </section>
       
-      {/* ============== NOUVELLE SECTION 1 : PROJETS D'IA ============== */}
+      {/* ============== SECTION PROJETS D'IA ============== */}
       <section className="main-projects-section">
         <div className="portfolio-header">
             <h1>Projets d'Intelligence Artificielle</h1>
@@ -134,19 +147,21 @@ function Portfolio() {
                     <div className="project-icon-wrapper">
                         {projet.icon}
                     </div>
-                    <h3>{projet.titre}</h3>
-                    <p>{projet.description}</p>
-                    <div className="project-tech-tags">
-                        {projet.technologies.map(tech => (
-                            <span key={tech} className="tech-tag">{tech}</span>
-                        ))}
+                    <div className="project-details">
+                      <h3>{projet.titre}</h3>
+                      <p>{projet.description}</p>
+                      <div className="project-tech-tags">
+                          {projet.technologies.map(tech => (
+                              <span key={tech} className="tech-tag">{tech}</span>
+                          ))}
+                      </div>
                     </div>
                 </div>
             ))}
         </div>
       </section>
 
-      {/* ============== NOUVELLE SECTION 2 : PROJETS DE DÉVELOPPEMENT ============== */}
+      {/* ============== SECTION PROJETS DE DÉVELOPPEMENT ============== */}
       <section className="main-projects-section">
         <div className="portfolio-header">
             <h1>Projets de Développement Logiciel</h1>
@@ -158,12 +173,14 @@ function Portfolio() {
                     <div className="project-icon-wrapper">
                         {projet.icon}
                     </div>
-                    <h3>{projet.titre}</h3>
-                    <p>{projet.description}</p>
-                    <div className="project-tech-tags">
-                        {projet.technologies.map(tech => (
-                            <span key={tech} className="tech-tag">{tech}</span>
-                        ))}
+                    <div className="project-details">
+                      <h3>{projet.titre}</h3>
+                      <p>{projet.description}</p>
+                      <div className="project-tech-tags">
+                          {projet.technologies.map(tech => (
+                              <span key={tech} className="tech-tag">{tech}</span>
+                          ))}
+                      </div>
                     </div>
                 </div>
             ))}
@@ -175,7 +192,7 @@ function Portfolio() {
         <div className="about-column">
           <h3>À Propos de Moi</h3>
           <p>
-            Fraîchement diplômé de l'ENISo, je suis un ingénieur curieux et passionné, toujours prêt à relever de nouveaux défis. Mon parcours m'a permis de développer une expertise solide en architecture de solutions intelligentes, du concept au déploiement. Je combine une base profonde en IA (allant de l'apprentissage automatique aux modèles RAG) avec un développement web et mobile complet, me permettant de concevoir des applications complètes et centrées sur l'utilisateur.
+            Ingénieur Fullstack et IA fraîchement diplômé de l'ENISo, je suis spécialisé dans la création d'applications intelligentes de bout en bout. Je traduis des besoins complexes en solutions de production robustes, en exploitant des pipelines RAG, des LLMs et des frameworks modernes comme PHP/Laravel et React. Passionné par le développement de produits centrés sur l'utilisateur, je m'efforce de créer une valeur commerciale tangible.
           </p>
         </div>
         <div className="skills-column">
@@ -185,7 +202,11 @@ function Portfolio() {
               <div key={categorie} className="skill-category">
                 <h4>{categorie}</h4>
                 <div className="tags-container">
-                  {skills.map(skill => <span key={skill} className="skill-tag">{skill}</span>)}
+                  {skills.map(skill => (
+                    <span key={skill.name} className={`skill-tag ${skill.highlight ? 'highlight' : ''}`}>
+                      {skill.name}
+                    </span>
+                  ))}
                 </div>
               </div>
             ))}
