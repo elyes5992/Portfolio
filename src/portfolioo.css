@@ -66,19 +66,29 @@ body {
 /* --- Headers de Section --- */
 .portfolio-header {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 80px; /* Plus d'espace sous le titre */
+  position: relative;
 }
+
 .portfolio-header h1 {
-  font-size: 3rem;
-  font-weight: 700;
-  color: var(--primary-text-color);
-  margin-bottom: 10px;
+  font-size: 3.2rem;
+  background: linear-gradient(to right, #fff, var(--accent-color));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 15px;
 }
-.portfolio-header p {
-  font-size: 1.1rem;
-  color: var(--secondary-text-color);
-  max-width: 600px;
-  margin: 0 auto;
+
+/* Petit séparateur décoratif sous le titre */
+.portfolio-header::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: var(--accent-color);
+  margin: 20px auto 0;
+  border-radius: 2px;
+  box-shadow: 0 0 15px var(--glow-color);
 }
 
 /* ========================================================= */
@@ -224,7 +234,7 @@ body {
 .projects-section {
   animation: fadeIn 0.8s ease-out 0.6s forwards;
   opacity: 0;
-  margin-bottom: 60px;
+  margin-bottom: 120px;
 }
 .projects-grid {
   display: grid;
@@ -249,7 +259,15 @@ body {
 .project-browser-bar .dot:nth-child(1) { background-color: #ff5f56; }
 .project-browser-bar .dot:nth-child(2) { background-color: #ffbd2e; }
 .project-browser-bar .dot:nth-child(3) { background-color: #27c93f; }
-.project-iframe { width: 100%; height: calc(200px - 28px); border: none; transform: scale(0.25); transform-origin: 0 0; width: 400%; height: 400%; pointer-events: none; }
+.project-iframe { 
+  width: 400%; 
+  height: 400%; 
+  border: none; 
+  transform: scale(0.25); 
+  transform-origin: 0 0; 
+  pointer-events: none; 
+  overflow: hidden;
+}
 .project-info { flex-grow: 1; display: flex; flex-direction: column; }
 .project-info h3 { font-size: 1.5rem; margin-top: 0; margin-bottom: 10px; color: var(--primary-text-color); }
 .project-info p { font-size: 0.95rem; color: var(--secondary-text-color); line-height: 1.6; flex-grow: 1; }
@@ -293,4 +311,122 @@ body {
 @media (max-width: 480px) {
     .hero-text h1 { font-size: 2.2rem; }
     .hero-image { width: 150px; height: 150px; }
+}
+
+
+/* --- Support du défilement fluide et décalage pour le header fixe --- */
+html {
+  scroll-behavior: smooth;
+}
+
+/* On ajoute un décalage pour que les titres ne soient pas cachés sous le header quand on clique sur un lien */
+section {
+  /* Augmente la distance par rapport au header lors du clic sur la nav */
+  scroll-margin-top: 120px; 
+  /* Plus d'espace entre les grandes sections */
+  margin-bottom: 160px; 
+  padding: 20px 0;
+}
+
+/* --- Style du Header Principal --- */
+.main-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: rgba(18, 18, 28, 0.8); /* Fond sombre semi-transparent */
+  backdrop-filter: blur(15px); /* Effet de flou moderne */
+  -webkit-backdrop-filter: blur(15px);
+  border-bottom: 1px solid var(--border-color);
+  padding: 15px 0;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-name {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--accent-color);
+  letter-spacing: -1px;
+}
+
+/* --- Navigation du Haut --- */
+.top-nav {
+  display: flex;
+  gap: 30px;
+}
+
+.top-nav a {
+  color: var(--secondary-text-color);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  padding: 8px 15px;
+  border-radius: 8px;
+}
+
+.top-nav a svg {
+  font-size: 1.1rem;
+}
+
+.top-nav a:hover {
+  color: var(--primary-text-color);
+  background: rgba(108, 92, 231, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Style spécifique pour un bouton "Actif" visuel */
+.top-nav a:active {
+  color: var(--accent-color);
+}
+
+/* --- Ajustement du Hero pour le Header Fixe --- */
+.hero-section {
+  padding-top: 120px; /* Ajoute de l'espace pour ne pas être sous le header */
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+}
+
+.hero-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  background: rgba(108, 92, 231, 0.15);
+  border: 1px solid var(--accent-color);
+  color: var(--accent-color);
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .top-nav span {
+    display: none; /* Cache le texte sur mobile pour ne garder que les icônes */
+  }
+  .top-nav {
+    gap: 15px;
+  }
+  .header-content {
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .hero-section {
+    padding-top: 160px;
+  }
 }

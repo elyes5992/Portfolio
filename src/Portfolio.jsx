@@ -1,16 +1,39 @@
 // Fichier : src/components/Portfolio.jsx
-import React from 'react';
-import './Portfolioo.css';
+import './portfolioo.css';
 
 // --- Importation de votre image de profil ---
 import profileImage from './assets/face.jpg';
 
 // --- Importation des icônes pour les projets ---
-import { FaRobot, FaFileInvoice, FaMobileAlt, FaBriefcase, FaBuilding, FaBrain, FaCube, FaChartBar } from 'react-icons/fa';
+import {
+  FaRobot, FaFileInvoice, FaMobileAlt, FaBriefcase, FaBuilding,
+  FaBrain, FaCube, FaChartBar, FaCalendarAlt, FaMapMarkerAlt,
+  FaHome, FaUser, FaCode, FaWordpress
+} from 'react-icons/fa';
 
 // --- Données des projets mises à jour depuis le CV ---
 
-// 1. Projets d'Intelligence Artificielle
+// --- 1. EXPÉRIENCES PROFESSIONNELLES (La nouveauté du CV) ---
+const experiences = [
+  {
+    id: 1,
+    poste: "Développeur Full Stack & IA",
+    entreprise: "SMART CONSEIL",
+    lieu: "Tunis / Ariana",
+    periode: "Juillet 2025 - Présent", // Ajusté selon la logique de ton CV
+    description: "Développement d'une plateforme de lutte contre le harcèlement scolaire. Création de modules d'IA pour l'analyse proactive de contenus à risque.",
+    missions: [
+      "Architecture Laravel 10 & PHP",
+      "Conception de modules Machine Learning",
+      "Optimisation UI/UX avec jQuery & React",
+      "Intégration ERP Odoo"
+    ],
+    techs: ["Laravel 10", "Python", "ML", "Odoo", "Git"]
+  }
+];
+
+
+// 2. Projets d'Intelligence Artificielle
 const projetsIA = [
   {
     id: 101,
@@ -99,29 +122,45 @@ const donneesProjetsWordPress = [
 
 // --- Compétences techniques mises à jour avec mise en avant de PHP ---
 const competences = {
-    "Frontend": [
-        { name: "React" }, { name: "Angular" }, { name: "Vue.js" }, { name: "Next.js" }
-    ],
-    "Backend": [
-        { name: "PHP", highlight: true }, { name: "Laravel", highlight: true }, { name: "Symfony", highlight: true },
-        { name: "Node.js" }, { name: "Spring Boot" }, { name: "Express" }, { name: "Java" }, { name: "Python" }
-    ],
-    "Bases de Données": [
-        { name: "PostgreSQL" }, { name: "MySQL" }, { name: "MongoDB" }, { name: "Oracle" }
-    ],
-    "Mobile": [
-        { name: "Flutter" }, { name: "React Native" }
-    ],
-    "Fondamentaux & Outils": [
-        { name: "IA/ML" }, { name: "LLM" }, { name: "RAG" }, { name: "Python" }, { name: "WebSockets" }, { name: "REST API" }, { name: "CI/CD" }, { name: "Docker" }, { name: "Junit" }
-    ]
+  "Frontend": [
+    { name: "React" }, { name: "Angular" }, { name: "Vue.js" }, { name: "Next.js" }
+  ],
+  "Backend": [
+    { name: "PHP", highlight: true }, { name: "Laravel", highlight: true }, { name: "Symfony", highlight: true },
+    { name: "Node.js" }, { name: "Spring Boot" }, { name: "Express" }, { name: "Java" }, { name: "Python" }
+  ],
+  "Bases de Données": [
+    { name: "PostgreSQL" }, { name: "MySQL" }, { name: "MongoDB" }, { name: "Oracle" }
+  ],
+  "Mobile": [
+    { name: "Flutter" }, { name: "React Native" }
+  ],
+  "Fondamentaux & Outils": [
+    { name: "IA/ML" }, { name: "LLM" }, { name: "RAG" }, { name: "Python" }, { name: "WebSockets" }, { name: "REST API" }, { name: "CI/CD" }, { name: "Docker" }, { name: "Junit" }
+  ]
 };
 
 function Portfolio() {
   return (
     <div className="portfolio-container">
+
+      <header className="main-header">
+        <div className="header-content">
+          <div className="logo-section">
+            <span className="logo-name">EB.</span>
+          </div>
+          <nav className="top-nav">
+            <a href="#home"><FaHome /> <span>Accueil</span></a>
+            <a href="#parcours"><FaBriefcase /> <span>Parcours</span></a>
+            <a href="#projects"><FaCode /> <span>Projets</span></a>
+            <a href="#wordpress"><FaWordpress /> <span>WordPress</span></a>
+            <a href="#about"><FaUser /> <span>À propos</span></a>
+          </nav>
+        </div>
+      </header>
+
       {/* ============== SECTION HÉROS ============== */}
-      <section className="hero-section">
+      <section className="hero-section" id="home">
         <div className="hero-text">
           <h1>Elyes BOUGHRARA</h1>
           <h2>Fullstack & AI Engineer</h2>
@@ -134,61 +173,98 @@ function Portfolio() {
           <img src={profileImage} alt="Portrait de Elyes Boughrara" className="hero-image" />
         </div>
       </section>
-      
-      {/* ============== SECTION PROJETS D'IA ============== */}
-      <section className="main-projects-section">
+
+      {/* ============== NOUVELLE SECTION : EXPÉRIENCE ============== */}
+
+
+      <section className="experience-section" id="parcours">
         <div className="portfolio-header">
+          <h1>Parcours Professionnel</h1>
+          <p>Mon expertise en entreprise et mes contributions techniques.</p>
+        </div>
+
+        <div className="experience-container">
+          {experiences.map(exp => (
+            <div key={exp.id} className="experience-card">
+              <div className="exp-info">
+                <span className="exp-date"><FaCalendarAlt /> {exp.periode}</span>
+                <h3>{exp.poste}</h3>
+                <h4>
+                  {exp.entreprise}
+                  <span className="exp-location"><FaMapMarkerAlt /> {exp.lieu}</span>
+                </h4>
+
+                <p className="exp-description">{exp.description}</p>
+
+                <ul className="exp-missions">
+                  {exp.missions.map((m, i) => <li key={i}>{m}</li>)}
+                </ul>
+
+                <div className="project-tech-tags">
+                  {exp.techs.map(t => <span key={t} className="tech-tag highlight">{t}</span>)}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ============== SECTION PROJETS D'IA ============== */}
+      <div id="projects">
+        <section className="main-projects-section">
+          <div className="portfolio-header">
             <h1>Projets d'Intelligence Artificielle</h1>
             <p>Exploration de solutions innovantes avec le Machine Learning, les LLMs et les pipelines RAG.</p>
-        </div>
-        <div className="main-projects-grid">
+          </div>
+          <div className="main-projects-grid">
             {projetsIA.map((projet) => (
-                <div key={projet.id} className="main-project-card">
-                    <div className="project-icon-wrapper">
-                        {projet.icon}
-                    </div>
-                    <div className="project-details">
-                      <h3>{projet.titre}</h3>
-                      <p>{projet.description}</p>
-                      <div className="project-tech-tags">
-                          {projet.technologies.map(tech => (
-                              <span key={tech} className="tech-tag">{tech}</span>
-                          ))}
-                      </div>
-                    </div>
+              <div key={projet.id} className="main-project-card">
+                <div className="project-icon-wrapper">
+                  {projet.icon}
                 </div>
+                <div className="project-details">
+                  <h3>{projet.titre}</h3>
+                  <p>{projet.description}</p>
+                  <div className="project-tech-tags">
+                    {projet.technologies.map(tech => (
+                      <span key={tech} className="tech-tag">{tech}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
             ))}
-        </div>
-      </section>
+          </div>
+        </section>
 
-      {/* ============== SECTION PROJETS DE DÉVELOPPEMENT ============== */}
-      <section className="main-projects-section">
-        <div className="portfolio-header">
+        {/* ============== SECTION PROJETS DE DÉVELOPPEMENT ============== */}
+        <section className="main-projects-section">
+          <div className="portfolio-header">
             <h1>Projets de Développement Logiciel</h1>
             <p>Création d'applications web et mobiles robustes, évolutives et centrées sur l'utilisateur.</p>
-        </div>
-        <div className="main-projects-grid">
+          </div>
+          <div className="main-projects-grid">
             {projetsDeveloppement.map((projet) => (
-                <div key={projet.id} className="main-project-card">
-                    <div className="project-icon-wrapper">
-                        {projet.icon}
-                    </div>
-                    <div className="project-details">
-                      <h3>{projet.titre}</h3>
-                      <p>{projet.description}</p>
-                      <div className="project-tech-tags">
-                          {projet.technologies.map(tech => (
-                              <span key={tech} className="tech-tag">{tech}</span>
-                          ))}
-                      </div>
-                    </div>
+              <div key={projet.id} className="main-project-card">
+                <div className="project-icon-wrapper">
+                  {projet.icon}
                 </div>
+                <div className="project-details">
+                  <h3>{projet.titre}</h3>
+                  <p>{projet.description}</p>
+                  <div className="project-tech-tags">
+                    {projet.technologies.map(tech => (
+                      <span key={tech} className="tech-tag">{tech}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
             ))}
-        </div>
-      </section>
+          </div>
+        </section>
+      </div>
 
-       {/* ============== SECTION À PROPOS & COMPÉTENCES ============== */}
-      <section className="about-skills-section">
+      {/* ============== SECTION À PROPOS & COMPÉTENCES ============== */}
+      <section className="about-skills-section" id="about">
         <div className="about-column">
           <h3>À Propos de Moi</h3>
           <p>
@@ -215,7 +291,7 @@ function Portfolio() {
       </section>
 
       {/* ============== SECTION GALERIE WORDPRESS (SECONDAIRE) ============== */}
-      <section className="projects-section">
+      <section className="projects-section" id="wordpress">
         <div className="portfolio-header">
           <h1>Autres Projets : Créations WordPress</h1>
           <p>Un aperçu de mon savoir-faire dans la création de sites WordPress sur-mesure, alliant design et performance.</p>
@@ -229,12 +305,11 @@ function Portfolio() {
                   <div className="dot"></div>
                   <div className="dot"></div>
                 </div>
-                <iframe 
-                    src={projet.url} 
-                    className="project-iframe"
-                    title={`Aperçu de ${projet.titre}`}
-                    scrolling="no"
-                    sandbox="allow-scripts allow-same-origin"
+                <iframe
+                  src={projet.url}
+                  className="project-iframe"
+                  title={`Aperçu de ${projet.titre}`}
+                  sandbox="allow-scripts allow-same-origin"
                 ></iframe>
               </div>
               <div className="project-info">
